@@ -2,7 +2,6 @@ const frases = require('./JSON/frases.json');
 
 
 
-
 //Inicialización
 const Discord = require("discord.js");
 const fs = require("fs");
@@ -30,13 +29,32 @@ const getFrase = () => {//Elige frase random del JSON
 }
 
 
+var lastAudioInd = null; //guarda el ultimo audio elegido
+const getAudio = () => { //elige un audio random
+	let audios = [];
+	let randIndex;
+	fs.readdirSync('./sounds').forEach(File => {
+		audios.push(File); 
+	  });
+	  do{
+		  randIndex = Math.floor(Math.random() * audios.length);
+	  }while(randIndex == lastAudioInd)
+	  lastAudioInd = randIndex;
+	  console.log(lastAudioInd, randIndex);
+	  let audio = `./sounds/${audios[randIndex]}`;
+	return audio;
+}
+
+
+
+
 
 
 
 
 //comandos del bot
 client.on('message', msg => {
-	if (msg.content === 'hola micha'){
+	if (msg.content === 'hola micha') {
 		msg.channel.send('jajaja en que andan manga de gays?');
 	}
 });
@@ -52,6 +70,28 @@ client.on('message', msg => {
 		msg.channel.send(getFrase());
 	}
 });
+
+
+
+client.on('message', msg => {
+	if (msg.content === '!audio') {
+		const voiceChannel = msg.member.voice.channel;
+		try {
+			voiceChannel.join().then(connection => {
+				const dispatcher = connection.play(`${getAudio()}`);
+				dispatcher.on("end", end => {
+					voiceChannel.leave();
+				});
+			}).catch(err => console.log(err));
+		}
+		catch {
+			msg.channel.send("TENES QUE ESTAR EN UN CHAT DE VOZ PANCHO")
+		}
+
+
+	}
+});
+
 
 
 
