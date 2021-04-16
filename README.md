@@ -1,2 +1,2 @@
 # MichaBot
-Discord bot
+Bot oficial del servidor de Discord de la SHK
