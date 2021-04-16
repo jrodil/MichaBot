@@ -1,0 +1,2 @@
+# MichaBot
+Discord bot
