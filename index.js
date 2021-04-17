@@ -1,7 +1,3 @@
-const frases = require('./JSON/frases.json');
-
-
-
 //Inicialización
 const Discord = require("discord.js");
 const fs = require("fs");
@@ -11,6 +7,21 @@ client.once("ready", () => {
 	console.log("MichaBot listo!");
 
 });
+
+
+
+
+//Carga data del bot (frases, etc)
+const frases = require('./JSON/frases.json');
+let help = "";
+fs.readFile('help.txt', 'utf8', function(err, data) {
+    if (err) throw err;
+	help = data;
+});
+
+
+
+
 
 
 
@@ -34,14 +45,14 @@ const getAudio = () => { //elige un audio random
 	let audios = [];
 	let randIndex;
 	fs.readdirSync('./sounds').forEach(File => {
-		audios.push(File); 
-	  });
-	  do{
-		  randIndex = Math.floor(Math.random() * audios.length);
-	  }while(randIndex == lastAudioInd)
-	  lastAudioInd = randIndex;
-	  console.log(lastAudioInd, randIndex);
-	  let audio = `./sounds/${audios[randIndex]}`;
+		audios.push(File);
+	});
+	do {
+		randIndex = Math.floor(Math.random() * audios.length);
+	} while (randIndex == lastAudioInd)
+	lastAudioInd = randIndex;
+	console.log(randIndex);
+	let audio = `./sounds/${audios[randIndex]}`;
 	return audio;
 }
 
@@ -82,6 +93,12 @@ client.on('message', msg => {
 				dispatcher.on("end", end => {
 					voiceChannel.leave();
 				});
+				client.on('message', msg => {
+					if (msg.content === '!chau') {
+						voiceChannel.leave();
+					}
+
+				})
 			}).catch(err => console.log(err));
 		}
 		catch {
@@ -91,6 +108,14 @@ client.on('message', msg => {
 
 	}
 });
+
+
+
+client.on('message', msg =>{
+	if(msg.content === '!help'){
+		msg.channel.send(`${help}`);
+	}
+})
 
 
 

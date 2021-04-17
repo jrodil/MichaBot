@@ -1,0 +1,4 @@
+```!help - muestra este menú (y (y claro idiota)
+!frase - tira una frase aleatoria clásica de la SHK
+!audio - tira un audio aleatorio clásico de la SHK
+!chau - desconecta al bot del chat de voz```
