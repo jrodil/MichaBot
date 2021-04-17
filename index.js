@@ -2,7 +2,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const client = new Discord.Client();
-const token = fs.readFileSync("token.txt").toString();
+const token = fs.readFileSync("./data/token.txt").toString();
 client.once("ready", () => {
 	console.log("MichaBot listo!");
 	client.user.setActivity('!help',{type: 'PLAYING'});
@@ -13,9 +13,9 @@ client.once("ready", () => {
 
 
 //Carga data del bot (frases, etc)
-const frases = require('./JSON/frases.json');
+const frases = require('./data/JSON/frases.json');
 let help = "";
-fs.readFile('help.txt', 'utf8', function(err, data) {
+fs.readFile('./data/help.txt', 'utf8', function(err, data) {
     if (err) throw err;
 	help = data;
 });
@@ -45,7 +45,7 @@ var lastAudioInd = null; //guarda el ultimo audio elegido
 const getAudio = () => { //elige un audio random
 	let audios = [];
 	let randIndex;
-	fs.readdirSync('./sounds').forEach(File => {
+	fs.readdirSync('./data/sounds').forEach(File => {
 		audios.push(File);
 	});
 	do {
@@ -53,7 +53,7 @@ const getAudio = () => { //elige un audio random
 	} while (randIndex == lastAudioInd)
 	lastAudioInd = randIndex;
 	console.log(randIndex);
-	let audio = `./sounds/${audios[randIndex]}`;
+	let audio = `./data/sounds/${audios[randIndex]}`;
 	return audio;
 }
 
