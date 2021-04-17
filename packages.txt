@@ -1,3 +1,0 @@
-npm i discord.js
-npm i ffmpeg-static
-npm i opusscript
