@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const token = fs.readFileSync("token.txt").toString();
 client.once("ready", () => {
 	console.log("MichaBot listo!");
+	client.user.setActivity('!help',{type: 'PLAYING'});
 
 });
 
