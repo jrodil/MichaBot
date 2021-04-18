@@ -92,9 +92,10 @@ client.on('message', msg => {
 		if (args.length == 1 && args[0] != '') {
 			if (args[0] == "lista") {//si el argumento es "lista"
 				let lista = getAudio("lista")
-				let listaMsg = "```Elegir audio con !audio **numero**"
+				let listaMsg = "```Elegir audio con !audio **numero**\n"
 				lista.forEach((file, index) => {
-					listaMsg = listaMsg.concat(`\n${index}: ${file}`)
+					let name = file.slice(0,-4)
+					listaMsg = listaMsg.concat(`\n${index}: ${name}`)
 				})
 				listaMsg = listaMsg.concat("```")
 				msg.channel.send(listaMsg);
