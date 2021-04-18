@@ -1,75 +1,24 @@
 //Inicialización
 const Discord = require("discord.js");
 const fs = require("fs");
+const lib = require('./lib.js')
 const client = new Discord.Client();
-const token = fs.readFileSync("./data/token.txt").toString();
+
+
 client.once("ready", () => {
 	console.log("MichaBot listo!");
-	client.user.setActivity('!help', { type: 'PLAYING' });
+	client.user.setActivity('!help', { type: 'LISTENING' });
 
 });
-
-//Carga data del bot (frases, etc)
-const frases = require('./data/JSON/frases.json');
-let help = "";
-fs.readFile('./data/help.txt', 'utf8', function (err, data) {
-	if (err) throw err;
-	help = data;
-});
-
-
-
-
-
-
-
-var lastFraseInd = null; //guarda la ultima frase elegida
-const getFrase = () => {//Elige frase random del JSON
-	let randIndex;
-	do {//para que no salga el mismo dos veces
-		randIndex = Math.floor(Math.random() * Object.keys(frases["general"]).length);
-	} while (randIndex == lastFraseInd)
-	lastFraseInd = randIndex;
-	let frase = frases["general"][randIndex];
-	return frase;
-}
-
-
-
-
-var lastAudioInd = null; //guarda el ultimo audio elegido
-const getAudio = (n) => { //elige un audio random
-	let audios = [];
-	fs.readdirSync('./data/sounds').forEach(File => { //carga la lista de audios
-		audios.push(File);
-	});
-	if (n == "lista") {
-		return audios; //devuelve la lista de audios
-	}
-	else if (n == "random") {
-		let randIndex;
-		do {
-			randIndex = Math.floor(Math.random() * audios.length);
-		} while (randIndex == lastAudioInd)
-		lastAudioInd = randIndex;
-		console.log(randIndex);
-		let audio = `./data/sounds/${audios[randIndex]}`;
-		return audio; //devuelve audio random
-	}
-	else {
-		let audio = `./data/sounds/${audios[n]}`;
-		return audio; //devuelve el audio por index
-	}
-
-}
 
 
 
 
 
 client.on('message', msg => {
+
 	if (msg.content === '!help') {
-		msg.channel.send(`${help}`);
+		msg.channel.send(`${lib.getHelp()}`);
 	}
 
 	if (msg.content === 'hola micha') {
@@ -81,8 +30,10 @@ client.on('message', msg => {
 	}
 
 	if (msg.content === '!frase') {
-		msg.channel.send(getFrase());
+		msg.channel.send(lib.getFrase());
 	}
+
+
 
 
 	if (msg.content.startsWith("!audio")) {
@@ -113,10 +64,6 @@ client.on('message', msg => {
 		else { //si tiene mas de un argumento
 			msg.channel.send("??? que re carajos digooo")
 		}
-
-
-
-
 		if (audio != "") {
 			const voiceChannel = msg.member.voice.channel;
 			if (voiceChannel) { //si usuario en canal de voz
@@ -132,13 +79,11 @@ client.on('message', msg => {
 			else {
 				msg.channel.send("TENES QUE ESTAR EN UN CHAT DE VOZ PANCHO")
 			}
-
-
 		}
 	}
 })
 
-client.login(token);
+client.login(lib.getToken());
 
 
 
