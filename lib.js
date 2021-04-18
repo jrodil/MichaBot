@@ -5,34 +5,36 @@ const frases = require('./data/JSON/frases.json');
 //loads data
 let help = ""
 fs.readFile('./data/help.txt', 'utf8', function (err, data) {
-    if (err){console.log} 
-    help =  data;
+	if (err) { console.log }
+	help = data;
 });
 
 
 
-const getToken = () =>{
-    return fs.readFileSync("./data/token.txt").toString();
+const getToken = () => {
+	return fs.readFileSync("./data/token.txt").toString();
+}
+
+
+const getHelp = () => {
+	return help;
 }
 
 
 
-const getHelp = () =>{
-    return help;
-}
 
-
-
-
-var lastFraseInd = null; //guarda la ultima frase elegida
-const getFrase = () => {//Elige frase random del JSON
-	let randIndex;
+var lastFraseInd = {
+	"kufa": null,
+	"micha": null,
+	"general": null,
+}; 
+const getFrase = (n) => { //N = categoria del JSON (general, kufa, micha, etc)
+	let randIndex
 	do {//para que no salga el mismo dos veces
-		randIndex = Math.floor(Math.random() * Object.keys(frases["general"]).length);
-	} while (randIndex == lastFraseInd)
-	lastFraseInd = randIndex;
-	let frase = frases["general"][randIndex];
-	return frase;
+		randIndex = Math.floor(Math.random() * Object.keys(frases[n]).length);
+	} while (randIndex == lastFraseInd[n])
+	lastFraseInd[n] == randIndex;
+	return frases[n][randIndex]
 }
 
 
@@ -59,6 +61,7 @@ const getAudio = (n) => { //elige un audio random
 		return audio; //devuelve audio random
 	}
 	else {
+		lastAudioInd = n;
 		let audio = `./data/sounds/${audios[n]}`;
 		return audio; //devuelve el audio por index
 	}
@@ -66,4 +69,4 @@ const getAudio = (n) => { //elige un audio random
 }
 
 
-module.exports = {getAudio, getFrase, getHelp, getToken}
+module.exports = { getAudio, getFrase, getHelp, getToken }

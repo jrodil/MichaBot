@@ -8,7 +8,6 @@ const client = new Discord.Client();
 client.once("ready", () => {
 	console.log("MichaBot listo!");
 	client.user.setActivity('!help', { type: 'LISTENING' });
-
 });
 
 
@@ -22,15 +21,15 @@ client.on('message', msg => {
 	}
 
 	if (msg.content === 'hola micha') {
-		msg.channel.send('jajaja en que andan manga de gays?');
+		msg.channel.send(lib.getFrase("micha"));
 	}
 
 	if (msg.content === 'kufa') {
-		msg.channel.send('ese es el verdadero mercenario🔪🔪');
+		msg.channel.send(lib.getFrase("kufa"));
 	}
 
 	if (msg.content === '!frase') {
-		msg.channel.send(lib.getFrase());
+		msg.channel.send(lib.getFrase("general"));
 	}
 
 
@@ -42,7 +41,7 @@ client.on('message', msg => {
 		let audio = "";
 		if (args.length == 1 && args[0] != '') {
 			if (args[0] == "lista") {//si el argumento es "lista"
-				let lista = getAudio("lista")
+				let lista = lib.getAudio("lista")
 				let listaMsg = "```Elegir audio con !audio **numero**\n"
 				lista.forEach((file, index) => {
 					let name = file.slice(0,-4)
@@ -52,14 +51,14 @@ client.on('message', msg => {
 				msg.channel.send(listaMsg);
 			}
 			else if (args[0].match(/^[0-9]+$/) != null) {//si es un numero
-				audio = getAudio(args[0])
+				audio = lib.getAudio(args[0])
 			}
 			else if (args[0].match(/^[0-9]+$/) == null) { //si no es lista ni numero
 				msg.channel.send("??? que re carajos digooo")
 			}
 		}
 		else if (args.length == 1 && args[0] == '') {
-			audio = getAudio("random")
+			audio = lib.getAudio("random")
 		}
 		else { //si tiene mas de un argumento
 			msg.channel.send("??? que re carajos digooo")
@@ -84,17 +83,3 @@ client.on('message', msg => {
 })
 
 client.login(lib.getToken());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
