@@ -50,6 +50,9 @@ client.on('message', msg => {
 				listaMsg = listaMsg.concat("```")
 				msg.channel.send(listaMsg);
 			}
+			else if(args[0] == "jere"){
+				audio = lib.getAudio("jere")
+			}
 			else if (args[0].match(/^[0-9]+$/) != null) {//si es un numero
 				audio = lib.getAudio(args[0])
 			}

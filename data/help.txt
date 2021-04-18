@@ -1,4 +1,10 @@
-```!help - muestra este menú (y (y claro idiota)
+```!help - muestra este menú (y claro idiota)
+
 !frase - tira una frase aleatoria clásica de la SHK
+
 !audio - tira un audio aleatorio clásico de la SHK
+    !audio lista - muestra la lista de audios
+    !audio jere - reproduce uno de los famosos audios de dante a jeremias
+    !audio **numero** - reproduce el audio seleccionado (mirar !audio lista)
+
 !chau - desconecta al bot del chat de voz```

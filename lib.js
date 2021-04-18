@@ -11,6 +11,9 @@ fs.readFile('./data/help.txt', 'utf8', function (err, data) {
 
 
 
+
+
+
 const getToken = () => {
 	return fs.readFileSync("./data/token.txt").toString();
 }
@@ -27,7 +30,7 @@ var lastFraseInd = {
 	"kufa": null,
 	"micha": null,
 	"general": null,
-}; 
+};
 const getFrase = (n) => { //N = categoria del JSON (general, kufa, micha, etc)
 	let randIndex
 	do {//para que no salga el mismo dos veces
@@ -41,12 +44,24 @@ const getFrase = (n) => { //N = categoria del JSON (general, kufa, micha, etc)
 
 
 
-var lastAudioInd = null; //guarda el ultimo audio elegido
+var lastAudioInd = {
+	"general": null,
+	"jere": null
+}; //guarda el ultimo audio elegido
 const getAudio = (n) => { //elige un audio random
 	let audios = [];
-	fs.readdirSync('./data/sounds').forEach(File => { //carga la lista de audios
-		audios.push(File);
-	});
+	let audiosJere = [];
+	if(n == "jere"){
+		fs.readdirSync('./data/sounds/jere/').forEach(File => { //carga la lista de audios
+			audiosJere.push(File);
+		});
+	}
+	else{
+		fs.readdirSync('./data/sounds/general/').forEach(File => { //carga la lista de audios
+			audios.push(File);
+		});
+	}
+	
 	if (n == "lista") {
 		return audios; //devuelve la lista de audios
 	}
@@ -54,15 +69,23 @@ const getAudio = (n) => { //elige un audio random
 		let randIndex;
 		do {
 			randIndex = Math.floor(Math.random() * audios.length);
-		} while (randIndex == lastAudioInd)
-		lastAudioInd = randIndex;
-		console.log(randIndex);
-		let audio = `./data/sounds/${audios[randIndex]}`;
+		} while (randIndex == lastAudioInd["general"])
+		lastAudioInd["general"] = randIndex;
+		let audio = `./data/sounds/general/${audios[randIndex]}`;
+		return audio; //devuelve audio random
+	}
+	else if (n == "jere") {
+		let randIndex;
+		do {
+			randIndex = Math.floor(Math.random() * audiosJere.length);
+		} while (randIndex == lastAudioInd["jere"])
+		lastAudioInd["jere"] = randIndex;
+		let audio = `./data/sounds/jere/${audiosJere[randIndex]}`;
 		return audio; //devuelve audio random
 	}
 	else {
-		lastAudioInd = n;
-		let audio = `./data/sounds/${audios[n]}`;
+		lastAudioInd["general"] = n;
+		let audio = `./data/sounds/general/${audios[n]}`;
 		return audio; //devuelve el audio por index
 	}
 
