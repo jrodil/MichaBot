@@ -32,6 +32,63 @@ client.on('message', msg => {
 		msg.channel.send(lib.getFrase("general"));
 	}
 
+	if (msg.content.startsWith('!song')) {
+		const prefix = "!song"
+		const args = msg.content.slice(prefix.length).trim().split(' ')
+		let song = "";
+		if (args.length == 1 && args[0] == "lista") {
+			
+			let lista = lib.getSong("lista")
+			let listaMsg = "```Elegir cancion con !song **numero**\n"
+			lista.forEach((file, index) => {
+				let name = file.slice(0, -4)
+				listaMsg = listaMsg.concat(`\n${index}: ${name}`)
+			})
+			listaMsg = listaMsg.concat("```")
+			msg.channel.send(listaMsg);
+		}
+		else if (args.length == 1 && args[0] == '') {
+			
+			song = lib.getSong("random")
+			const voiceChannel = msg.member.voice.channel;
+			if (voiceChannel) { //si usuario en canal de voz
+				voiceChannel.join().then(connection => {
+					const dispatcher = connection.play(`${song}`);
+					client.on('message', msg => {
+						if (msg.content === '!chau') {
+							voiceChannel.leave();
+						}
+					})
+				}).catch(err => console.log(err));
+			}
+			else {
+				msg.channel.send("TENES QUE ESTAR EN UN CHAT DE VOZ PANCHO")
+			}
+		}
+		else if (args[0].match(/^[0-9]+$/) != null) {//si es un numero
+			
+			song = lib.getSong(args[0])
+			const voiceChannel = msg.member.voice.channel;
+			if (voiceChannel) { //si usuario en canal de voz
+				voiceChannel.join().then(connection => {
+					const dispatcher = connection.play(`${song}`);
+					client.on('message', msg => {
+						if (msg.content === '!chau') {
+							voiceChannel.leave();
+						}
+					})
+				}).catch(err => console.log(err));
+			}
+			else {
+				msg.channel.send("TENES QUE ESTAR EN UN CHAT DE VOZ PANCHO")
+			}
+		}
+		else{
+			msg.channel.send("??? que re carajos digooo")
+		}
+	}
+
+
 
 
 
@@ -44,13 +101,13 @@ client.on('message', msg => {
 				let lista = lib.getAudio("lista")
 				let listaMsg = "```Elegir audio con !audio **numero**\n"
 				lista.forEach((file, index) => {
-					let name = file.slice(0,-4)
+					let name = file.slice(0, -4)
 					listaMsg = listaMsg.concat(`\n${index}: ${name}`)
 				})
 				listaMsg = listaMsg.concat("```")
 				msg.channel.send(listaMsg);
 			}
-			else if(args[0] == "jere"){
+			else if (args[0] == "jere") {
 				audio = lib.getAudio("jere")
 			}
 			else if (args[0].match(/^[0-9]+$/) != null) {//si es un numero

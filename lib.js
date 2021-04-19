@@ -43,6 +43,37 @@ const getFrase = (n) => { //N = categoria del JSON (general, kufa, micha, etc)
 
 
 
+lastSongInd = ""
+let songs = [];
+const getSong = (n) => {
+	if(songs.length == 0){
+		fs.readdirSync('./data/songs/').forEach(File => { //carga la lista de audios
+			songs.push(File);
+		});
+	}
+
+
+	if (n == "lista") {
+		return songs
+	}
+	else if(n == "random"){
+		let randIndex;
+		do {
+			randIndex = Math.floor(Math.random() * songs.length);
+		} while (randIndex == lastSongInd)
+		lastSongInd = randIndex;
+		let song = `./data/songs/${songs[randIndex]}`;
+		return song; 
+	}
+	else{
+		let song = `./data/songs/${songs[n]}`;
+		return song
+	}
+}
+
+
+
+
 
 var lastAudioInd = {
 	"general": null,
@@ -51,17 +82,19 @@ var lastAudioInd = {
 const getAudio = (n) => { //elige un audio random
 	let audios = [];
 	let audiosJere = [];
-	if(n == "jere"){
+	if (n == "jere") {
 		fs.readdirSync('./data/sounds/jere/').forEach(File => { //carga la lista de audios
 			audiosJere.push(File);
 		});
 	}
-	else{
+	else {
 		fs.readdirSync('./data/sounds/general/').forEach(File => { //carga la lista de audios
 			audios.push(File);
 		});
 	}
-	
+
+
+
 	if (n == "lista") {
 		return audios; //devuelve la lista de audios
 	}
@@ -92,4 +125,4 @@ const getAudio = (n) => { //elige un audio random
 }
 
 
-module.exports = { getAudio, getFrase, getHelp, getToken }
+module.exports = { getAudio, getFrase, getHelp, getToken, getSong }

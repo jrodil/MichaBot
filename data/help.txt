@@ -7,4 +7,8 @@
     !audio jere - reproduce uno de los famosos audios de dante a jeremias
     !audio **numero** - reproduce el audio seleccionado (mirar !audio lista)
 
+!song - tira una cancion aleatoria clásica de la SHK
+    !song lista - muestra la lista de canciones
+    !song **numero** - reproduce la cancion seleccionada (mirar !song lista)
+
 !chau - desconecta al bot del chat de voz```
