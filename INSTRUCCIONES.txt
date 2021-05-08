@@ -1,6 +1,6 @@
 1. Ejecutar el archivo INSTALL.bat.
 
-2. Descargar los archivos multimedia (audios, etc) y extraer el zip en este directorio (MichaBot):
+2. Descargar los archivos multimedia (audios, etc) y extraer el zip en la carpeta data (MichaBot/data):
 	Link:   https://drive.google.com/uc?export=download&id=15oAqaskY4kB9nN7bKk94SgbzfnVO3m1w
 
 3. Para correr el bot abrir cmd en la carpeta y escribir:
