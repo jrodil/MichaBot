@@ -1,5 +1,7 @@
 ```!help - muestra este menú (y claro idiota)
 
+!foto - tira una foto aleatoria clásica de la SHK
+
 !frase - tira una frase aleatoria clásica de la SHK
 
 !audio - tira un audio aleatorio clásico de la SHK
