@@ -18,6 +18,7 @@ client.on('message', msg => {
 
 	if (msg.content === '!help') {
 		msg.channel.send(`${lib.getHelp()}`);
+
 	}
 
 	if (msg.content === 'hola micha') {
@@ -39,6 +40,7 @@ client.on('message', msg => {
 	if (msg.content === '!frase') {
 		msg.channel.send(lib.getFrase("general"));
 	}
+
 
 
 
@@ -173,7 +175,18 @@ client.on('message', msg => {
 		}
 
 
-}
+	}
+
+
+
+	if (msg.content.startsWith("!foto")) {
+
+		let img = lib.getMeme()
+		const foto = new Discord.MessageAttachment(`${img}`);
+		msg.channel.send(foto)
+	}
+
+
 })
 
 

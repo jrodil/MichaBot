@@ -125,4 +125,23 @@ const getAudio = (n) => { //elige un audio random
 }
 
 
-module.exports = { getAudio, getFrase, getHelp, getToken, getSong }
+
+let lastImgInd = "";
+const getMeme = () =>{
+	let list = [];
+	fs.readdirSync('./data/img/').forEach(File => { //carga la lista de audios
+		list.push(File);
+	});
+	do{
+	var i = Math.floor(Math.random() * list.length);
+	}
+	while(i == lastImgInd)
+	lastImgInd = i
+
+	return `./data/img/${list[i]}`
+
+}
+
+
+
+module.exports = { getAudio, getFrase, getHelp, getToken, getSong, getMeme }
