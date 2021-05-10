@@ -1,5 +1,5 @@
 const fs = require("fs");
-const frases = require('./data/JSON/frases.json');
+const frases = require('./data/frases.json');
 
 
 //loads data

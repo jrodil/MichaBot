@@ -7,7 +7,7 @@ const client = new Discord.Client();
 
 client.once("ready", () => {
 	console.log("MichaBot listo!");
-	client.user.setActivity('!help', { type: 'LISTENING' });
+	client.user.setActivity('!help', { type: 'LISTENING' })
 });
 
 
