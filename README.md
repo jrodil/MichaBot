@@ -1,2 +1,2 @@
 # MichaBot
-Bot oficial del servidor de Discord de la SHK
+Bot de Discord hecho con Javascript
